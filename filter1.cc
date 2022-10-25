@@ -8,16 +8,6 @@ using namespace std;
 
 const int RED = 0, GREEN = 1, BLUE = 2;
 
-void make_rect(vector<vector<vector<int>>> &vec, int x_min, int x_max, int y_min, int y_max) {
-	for (int i = y_min; i <= y_max; i++) {
-		for (int j = x_min; j <= x_max; j++) {
-			vec[i][j][RED] = 0;
-			vec[i][j][GREEN] = 0;
-			vec[i][j][BLUE] = 0;
-		}
-	}
-}
-
 //YOU: Write your own filter here - delete the demo code or modify it to suit your purposes
 void filter1(vector<vector<vector<int>>> &vec) {
 	//Get the number of rows, columns, and colors in this 3D vector
@@ -28,14 +18,17 @@ void filter1(vector<vector<vector<int>>> &vec) {
 	size_t colors = vec.at(0).at(0).size();
 	if (!colors) exit(1);
 
-	//TODO: Use for watermark.
-//	make_rect(vec, 50, 200, 50, 60); 
-//	make_rect(vec, 50, 200, 100, 110); 
-
-	//Initialize redVal, greenVal, and blueVal to hold RGB values respectively.
+	//Initialize redVal, greenVal, and blueVal to hold RGB values respectively. The gradient percents affects what color the sun and lines on the bottom are.
 	int redVal = 0;
 	int greenVal = 0;
 	int blueVal = 0;
+	double sunRedGradientPercent = 1, sunCyanGradientPercent = 0;
+	double redGradientPercent = 1, cyanGradientPercent = 0;
+
+	//NOTE COLORS USED:
+	//		Soft blue: 200, 235, 250
+	//		Cyan used: 100, 238, 255
+	//		Red: Default red. Amplified at times to make it more showy.
 
 	//Cycle through the image one row and all columns at a time.
 	for (int i = 0; i < rows; i++) {
@@ -45,7 +38,95 @@ void filter1(vector<vector<vector<int>>> &vec) {
 			greenVal = vec.at(i).at(j).at(GREEN);
 			blueVal = vec.at(i).at(j).at(BLUE);
 
-			//Turns the sun icy blue.
+			//Makes sun split down the middle into red and cyan, gradiented. Uses 4 boxes to accomplish this.
+			//Top box.
+			if (j < 790) {
+				//Left side.
+				if (i > 1198 and i <= 2000) {
+					//If the color is close to red, gradient it.
+					if (redVal > 120 and greenVal < 115 and blueVal < 115) {
+						//Amplify red color first...
+						vec.at(i).at(j).at(RED) *= 1.45;
+						vec.at(i).at(j).at(GREEN) *= 1.45;
+						vec.at(i).at(j).at(BLUE) *= 1.45;
+						//...and then gradient it.
+						vec.at(i).at(j).at(RED) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(GREEN) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(BLUE) *= sunRedGradientPercent;
+					}
+					//Else if the difference between the RGB values is greater or equal to 10, also gradient it. In English, this means if the color is more red than not.
+					else if ((redVal - blueVal >= 10) and (redVal - greenVal >= 10) and (blueVal - greenVal >= 10)) {
+						//Amplify red color first...
+						vec.at(i).at(j).at(RED) *= 1.45;
+						vec.at(i).at(j).at(GREEN) *= 1.45;
+						vec.at(i).at(j).at(BLUE) *= 1.45;
+						//...and then gradient it.
+						vec.at(i).at(j).at(RED) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(GREEN) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(BLUE) *= sunRedGradientPercent;
+					}
+				}
+				//Right side.
+				else if (i > 2000 and i < 2800) {
+					//If the color is close to red, make the pixel icy blue and gradient it.
+					if (redVal > 120 and greenVal < 115 and blueVal < 115) {
+						vec.at(i).at(j).at(RED) = 100 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(GREEN) = 238 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(BLUE) = 255 * sunCyanGradientPercent;
+					}
+					//Else if the difference between the RGB values is greater or equal to 10, also make the pixel icy blue and gradient it. In English, this means if the color is more red than not.
+					else if ((redVal - blueVal >= 10) and (redVal - greenVal >= 10) and (blueVal - greenVal >= 10)) {
+						vec.at(i).at(j).at(RED) = 100 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(GREEN) = 238 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(BLUE) = 255 * sunCyanGradientPercent;
+					}	
+				}
+			}
+			//Bounds check #2. From row 790 to the bottom of sun.
+			//Bottom box.
+			else if (j < 945) {
+				//Left side.
+				if (i > 1515 and i <= 2000) {
+					//If the color is close to red, gradient it.
+					if (redVal > 120 and greenVal < 115 and blueVal < 115) {
+						//Amplify red color first...
+						vec.at(i).at(j).at(RED) *= 1.45;
+						vec.at(i).at(j).at(GREEN) *= 1.45;
+						vec.at(i).at(j).at(BLUE) *= 1.45;
+						//...and then gradient it.
+						vec.at(i).at(j).at(RED) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(GREEN) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(BLUE) *= sunRedGradientPercent;
+					}
+					//Else if the difference between the RGB values is greater or equal to 10, also gradient it. In English, this means if the color is more red than not.
+					else if ((redVal - blueVal >= 10) and (redVal - greenVal >= 10) and (blueVal - greenVal >= 10)) {
+						//Amplify red color first...
+						vec.at(i).at(j).at(RED) *= 1.45;
+						vec.at(i).at(j).at(GREEN) *= 1.45;
+						vec.at(i).at(j).at(BLUE) *= 1.45;
+						//...and thne gradient it.
+						vec.at(i).at(j).at(RED) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(GREEN) *= sunRedGradientPercent;
+						vec.at(i).at(j).at(BLUE) *= sunRedGradientPercent;
+					}
+				}
+				//Right side.
+				else if (i > 2000 and i < 2800) {
+					//If the color is close to red, make the pixel icy blue and gradient it.
+					if (redVal > 120 and greenVal < 115 and blueVal < 115) {
+						vec.at(i).at(j).at(RED) = 100 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(GREEN) = 238 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(BLUE) = 255 * sunCyanGradientPercent;
+					}
+					//Else if the difference between the RGB values is greater or equal to 10, also make the pixel icy blue and gradient it. In English, this means if the color is more red than not.
+					else if ((redVal - blueVal >= 10) and (redVal - greenVal >= 10) and (blueVal - greenVal >= 10)) {
+						vec.at(i).at(j).at(RED) = 100 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(GREEN) = 238 * sunCyanGradientPercent;
+						vec.at(i).at(j).at(BLUE) = 255 * sunCyanGradientPercent;
+					}
+				}
+			}
+/*			//Turns the sun icy blue.
 			//NOTE: Two bounds checks are requied as one of the birds that would otherwise be in-bounds of a fully encompassing square, is just barely within the color range to be turned partially icy blue.
 			//Bounds check #1. From the top of sun to row 790.
 			if ((i > 1193 and i < 2800) and (j < 790)) {
@@ -55,7 +136,7 @@ void filter1(vector<vector<vector<int>>> &vec) {
 					vec.at(i).at(j).at(GREEN) = 233;
 					vec.at(i).at(j).at(BLUE) = 250;
 				}
-				//Else if the difference between the RGB values is greater or equal to 10, make the pixel icy blue. In English, this means if the color is more red than not.
+				//Else if the difference between the RGB values is greater or equal to 10, also make the pixel icy blue. In English, this means if the color is more red than not.
 				else if ((redVal - blueVal >= 10) and (redVal - greenVal >= 10) and (blueVal - greenVal >= 10)) {
 					vec.at(i).at(j).at(RED) = 200;
 					vec.at(i).at(j).at(GREEN) = 233;
@@ -70,64 +151,54 @@ void filter1(vector<vector<vector<int>>> &vec) {
 					vec.at(i).at(j).at(GREEN) = 233;
 					vec.at(i).at(j).at(BLUE) = 250;
 				}
-				//Else if the difference between the RGB values is greater or equal to 10, make the pixel icy blue. In English, this means if the color is more red than not.
+				//Else if the difference between the RGB values is greater or equal to 10, also make the pixel icy blue. In English, this means if the color is more red than not.
 				else if ((redVal - blueVal >= 10) and (redVal - greenVal >= 10) and (blueVal - greenVal >= 10)) {
 					vec.at(i).at(j).at(RED) = 200;
 					vec.at(i).at(j).at(GREEN) = 233;
 					vec.at(i).at(j).at(BLUE) = 250;
 				}
-			}
+			} */
 			//Bounds check for bottom part of screen where the red lines on the ground are.
-			else if (j > 1980) {
-				//If redVal minus greenVal and blueVal combined is higher than FIXME, then it's considered red and is changed to icy blue.
-				if ((redVal - blueVal >= 30) and (redVal - greenVal >= 30)) {
-					vec.at(i).at(j).at(RED) = 100;
-					vec.at(i).at(j).at(GREEN) = 238;
-					vec.at(i).at(j).at(BLUE) = 255;
+			else { 
+				//Gradients red from left to right, starting at beginning of screen and stopping at middle of screen.
+				if ((i <= 2000) and (redVal - blueVal >= 30) and (redVal - greenVal >= 30)) {
+					//Increases the red color so looks similar to the hue of cyan's.
+					vec.at(i).at(j).at(RED) *= 1.48;
+					vec.at(i).at(j).at(GREEN) *= 1.48;
+					vec.at(i).at(j).at(BLUE) *= 1.48;
+
+					//Reduce red color by the gradient percentage.
+					vec.at(i).at(j).at(RED) *= redGradientPercent;
+					vec.at(i).at(j).at(GREEN) *= redGradientPercent;
+					vec.at(i).at(j).at(BLUE) *= redGradientPercent;
+				}
+				//Gradients cyan from left to right, starting at middle of screen to end of screen.
+				//The last two conditional statements (making of box using i and j) prevents the swords from being colored in.
+				else if ((i > 2000) and (redVal - blueVal >= 30) and (redVal - greenVal >= 30)) {
+					//These if statements prevent three of the swords from being colored a bit blue.
+					//Right side sword.
+					if ((j >= 2000 and j <= 2044) and (i >= 3595 and i <= 3641)) continue;
+					if ((j >= 1942 and j <= 2011) and (i >= 3615 and i <= 3645)) continue;
+					if ((j >= 2043 and j <= 2053) and (i >= 3614 and i <= 3624)) continue;
+					//Left side sword.
+					if ((j >= 1952 and j <= 1998) and (i >= 3134 and i <= 3151)) continue;
+					if ((j >= 1999 and j <= 2021) and (i >= 3136 and i <= 3154)) continue;
+					if ((j >= 2022 and j <= 2075) and (i >= 3139 and i <= 3162)) continue;
+					if ((j >= 2068 and j <= 2075) and (i >= 3163 and i <= 3165)) continue;
+					//Lefter side sword.
+					if ((j >= 1855 and j <= 2002) and (i >= 2653 and i <= 2678)) continue;
+
+					//Reduce the cyan color by the gradient percentage.
+					vec.at(i).at(j).at(RED) = 100 * cyanGradientPercent;
+					vec.at(i).at(j).at(GREEN) = 238 * cyanGradientPercent;
+					vec.at(i).at(j).at(BLUE) = 255 * cyanGradientPercent;
 				}
 			}
 		}
+		//I don't even know how the living hell i affects the columns, but puts a gradient for the red side and cyan side ending in black in the middle. (Both sun and floor.)
+		if (i >= 1198 and i < 2000) sunRedGradientPercent -= 0.0012;
+		if (i > 2000 and i <= 2800) sunCyanGradientPercent += 0.0013;
+		if (i < 2000) redGradientPercent -= 0.00048;
+		if (i > 2000) cyanGradientPercent += 0.00048;
 	}
-	
-	/*
-	//Do the image filtering on every row and column in this image...
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++) {
-			vec.at(i).at(j).at(RED) *= 2;
-			vec.at(i).at(j).at(GREEN) *= 2;
-			vec.at(i).at(j).at(BLUE) *= 2;
-
-			//r is the red value at the current spot, g is the green, b is the blue
-			int r = vec.at(i).at(j).at(RED); //Bounds check with .at the first time
-			int g = vec[i][j][GREEN]; //Skip bounds check for speed
-			int b = vec[i][j][BLUE];
-
-			//DEMO CODE BEGIN
-			
-			//The demo code here will either sepia tone or yellowize the image, depending on which one you comment out
-			//Simple Example - Make the image more yellowish
-			vec.at(i).at(j).at(RED) *= 1.3; //Increase red value at every point by 50%
-            vec.at(i).at(j).at(GREEN) *= 1.2; //Increase green at every point by 20%
-            vec.at(i).at(j).at(BLUE) *= 0.8; //Reduce blue by 20%
-			
-
-			//Add a rainbow pattern 
-			if (r > 150 and g < 150) {
-				int avg = (r+g+b)/3;
-				vec[i][j][RED] = avg + 128*cos(i/20.0);
-				vec[i][j][GREEN] = avg + 128*sin(i/50.0);;
-				vec[i][j][BLUE] = avg + 128*cos(i/40.0 + 3);
-			}
-
-		
-			//Complex Example - Do sepia toning
-			//Get the red, green and blue values at row i, col j:
-			//These magic numbers do sepia toning
-			vec[i][j][RED]   = r*0.393 + g*0.769 + b*0.189;
-			vec[i][j][GREEN] = r*0.349 + g*0.686 + b*0.168;
-			vec[i][j][BLUE]  = r*0.272 + g*0.534 + b*0.131;
-			
-			//DEMO CODE END
-		}
-	}*/
 }

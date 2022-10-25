@@ -1,11 +1,11 @@
 //==================================================================================
 //Write your names here, and explain what each student's code does
 //Student 1 Name: Declan Doss
-//Student 1's Filter Description: 
+//Student 1's Filter Description: Splits sun and red floor lines down middle, half red half cyan, gradiented.
 //Student 2 Name: Khushkaranpreet Grewal
-//Student 2's Filter Description:
+//Student 2's Filter Description: 
 //Student 3 Name: Luis Sanchez
-//Student 3's Filter Description:
+//Student 3's Filter Description: 
 //==================================================================================
 //You don't need to modify this file below this line, unless you, like, want to
 
@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
 		cerr << "Time to write filter1.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 
 		//PHASE 3 - Run Student 2's Code
-/*		start_time = clock();
+		start_time = clock();
 		filter2(vec); 
 		end_time = clock();
 		cerr << "Filter 2 time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
 		//image.save_png("filter3.png"); //Uncomment this for higher quality output
 		image.save_jpeg("filter3.jpg", 80); //Output result after filter 3
 		end_time = clock();
-		cerr << "Time to write filter3.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n"; */
+		cerr << "Time to write filter3.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 	} catch (...) {
 		cout << "Error opening file\n";
 		exit(EXIT_FAILURE);
