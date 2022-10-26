@@ -3,9 +3,9 @@
 //Student 1 Name: Declan Doss
 //Student 1's Filter Description: Splits sun and red floor lines down middle, half red half cyan, gradiented.
 //Student 2 Name: Khushkaranpreet Grewal
-//Student 2's Filter Description: 
+//Student 2's Filter Description: Makes a hot/cold filter split down the middle, gradiented similarly to filter 1.
 //Student 3 Name: Luis Sanchez
-//Student 3's Filter Description: 
+//Student 3's Filter Description: Creates diagonal lines meant to give texture to image. Also composites watermark & hidden message onto picture.
 //==================================================================================
 //You don't need to modify this file below this line, unless you, like, want to
 
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
 		//Save the file after the first filter is run
 		start_time = clock();
 		vec_to_image(image,vec,cols,rows); //Copy from the vec to the image object
-		//image.save_png("filter1.png"); //Use this for higher quality output
+		image.save_png("filter1.png"); //Use this for higher quality output
 		image.save_jpeg("filter1.jpg", 80); //Output result after filter 1 with 80% quality
 		end_time = clock();
 		cerr << "Time to write filter1.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
@@ -110,19 +110,19 @@ int main(int argc, char **argv) {
 		cerr << "Filter 2 time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 		start_time = clock();
 		vec_to_image(image,vec,cols,rows); //Copy from the vec to the image object
-		//image.save_png("filter2.png"); //Uncomment this for higher quality output
+		image.save_png("filter2.png"); //Uncomment this for higher quality output
 		image.save_jpeg("filter2.jpg", 80); //Output result after filter 2
 		end_time = clock();
 		cerr << "Time to write filter2.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 
 		//PHASE 4 - Run Student 3's Code, if they exist. If they exist, uncomment out this code block
-		   start_time = clock();
-		   filter3(vec,vec2); 
-		   end_time = clock();
-		   cerr << "Filter 3 time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
-		   start_time = clock();
-		   vec_to_image(image,vec,cols,rows); //Copy from the vec to the image object
-		//image.save_png("filter3.png"); //Uncomment this for higher quality output
+		start_time = clock();
+		filter3(vec,vec2); 
+		end_time = clock();
+		cerr << "Filter 3 time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
+		start_time = clock();
+		vec_to_image(image,vec,cols,rows); //Copy from the vec to the image object
+		image.save_png("filter3.png"); //Uncomment this for higher quality output
 		image.save_jpeg("filter3.jpg", 80); //Output result after filter 3
 		end_time = clock();
 		cerr << "Time to write filter3.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
