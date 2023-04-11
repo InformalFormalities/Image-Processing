@@ -9,5 +9,4 @@ The first filter is all done by me, with the second and third filters being a jo
 Link to this project: https://github.com/InformalFormalities/Image-Processing
 
 Groupmates:
-   ChachaTeraSira (https://github.com/ChachaTeraSira)
-   Chatito (https://github.com/Chato-sanchez)
+   ChachaTeraSira (https://github.com/ChachaTeraSira), Chatito (https://github.com/Chato-sanchez)
