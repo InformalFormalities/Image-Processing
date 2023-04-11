@@ -1,13 +1,10 @@
 //==================================================================================
-//Write your names here, and explain what each student's code does
-//Student 1 Name: Declan Doss
-//Student 1's Filter Description: Splits sun and red floor lines down middle, half red half cyan, gradiented.
-//Student 2 Name: Khushkaranpreet Grewal
-//Student 2's Filter Description: Makes a hot/cold filter split down the middle, gradiented similarly to filter 1.
-//Student 3 Name: Luis Sanchez
-//Student 3's Filter Description: Creates diagonal lines meant to give texture to image. Also composites watermark & hidden message onto picture.
+//Contributor Names: Declan Doss, Khushkaranpreet Grewal, Luis Sanchez
+//1st Filter Description: Splits sun and red floor lines down middle, half red half cyan, gradiented.
+//2nd Filter Description: Makes a hot/cold filter split down the middle, gradiented similarly to filter 1.
+//3rd Filter Description: Creates diagonal lines meant to give texture to image. Also composites watermark & hidden message onto picture.
 //==================================================================================
-//You don't need to modify this file below this line, unless you, like, want to
+//All code below this line is by Professor William Kerney of Clovis Community College. Contact information: https://www.cloviscollege.edu/directory/william-kerney.html. GPL Licensed
 
 #include <CImg.h>
 #include <vector>
@@ -29,8 +26,8 @@ void filter3(vector<vector<vector<int>>> &vec,vector<vector<vector<int>>> &vec2)
 
 //This code must be run with a command line parameter, so print error and quit if they don't run it right
 void usage() {
-	cout << "Error: this program needs to be called with a command line parameter indicating what file to open.\n";
-	cout << "For example, a.out /public/kyoto.jpg\n";
+	cout << "Error: this program needs to be called with one or two command line parameter(s) indicating what file to open.\n";
+	cout << "For example, a.out kyoto.jpg or a.out kyoto.jpg tokyo.jpg if wanting to overlay.\n";
 	exit(1);
 }
 
@@ -98,10 +95,10 @@ int main(int argc, char **argv) {
 		//Save the file after the first filter is run
 		start_time = clock();
 		vec_to_image(image,vec,cols,rows); //Copy from the vec to the image object
-		image.save_png("filter1.png"); //Use this for higher quality output
-		image.save_jpeg("filter1.jpg", 80); //Output result after filter 1 with 80% quality
+		image.save_png("images/filter1.png"); //Higher quality output
+//		image.save_jpeg("filter1.jpg", 80); //Output result after filter 1 with 80% quality
 		end_time = clock();
-		cerr << "Time to write filter1.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
+		cerr << "Time to write filter1.png: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 
 		//PHASE 3 - Run Student 2's Code
 		start_time = clock();
@@ -110,10 +107,10 @@ int main(int argc, char **argv) {
 		cerr << "Filter 2 time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 		start_time = clock();
 		vec_to_image(image,vec,cols,rows); //Copy from the vec to the image object
-		image.save_png("filter2.png"); //Uncomment this for higher quality output
-		image.save_jpeg("filter2.jpg", 80); //Output result after filter 2
+		image.save_png("images/filter2.png"); //Higher quality output
+//		image.save_jpeg("filter2.jpg", 80); //Output result after filter 2
 		end_time = clock();
-		cerr << "Time to write filter2.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
+		cerr << "Time to write filter2.png: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 
 		//PHASE 4 - Run Student 3's Code, if they exist. If they exist, uncomment out this code block
 		start_time = clock();
@@ -122,13 +119,12 @@ int main(int argc, char **argv) {
 		cerr << "Filter 3 time: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 		start_time = clock();
 		vec_to_image(image,vec,cols,rows); //Copy from the vec to the image object
-		image.save_png("filter3.png"); //Uncomment this for higher quality output
-		image.save_jpeg("filter3.jpg", 80); //Output result after filter 3
+		image.save_png("images/filter3.png"); //Higher quality output
+//		image.save_jpeg("filter3.jpg", 80); //Output result after filter 3
 		end_time = clock();
-		cerr << "Time to write filter3.jpg: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
+		cerr << "Time to write filter3.png: " << double (end_time - start_time) / CLOCKS_PER_SEC << " secs\n";
 	} catch (...) {
 		cout << "Error opening file\n";
 		exit(EXIT_FAILURE);
 	}
 }
-

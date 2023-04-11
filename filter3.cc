@@ -1,4 +1,4 @@
-//Student 3 Name: Luis Sanchez
+//By: Declan Doss, Khushkaranpreet Grewal, & Luis Sanchez
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -8,10 +8,8 @@ using namespace std;
 
 const int RED = 0, GREEN = 1, BLUE = 2;
 
-//YOU: Write your own filter here - delete the demo code or modify it to your purposes
-//void filter3(vector<vector<vector<int>>> &vec) {
 void filter3(vector<vector<vector<int>>> &vec, vector<vector<vector<int>>> &vec2) {
-	//This was hell, don't question why 1 is equal to 1. (We need cols/rows/color to go out of scope for code to work. Need to redefine them.)
+	//Don't question it. (We need cols/rows/color to go out of scope for code to work. Problem with redefining.)
 	if (1 == 1) {
 		//Needed to do the diagonal lines.
 		size_t rows = vec.size();
@@ -42,7 +40,7 @@ void filter3(vector<vector<vector<int>>> &vec, vector<vector<vector<int>>> &vec2
 					else if (i > 1970 and i <= 3690 and j >= 100 and j <= 2300) {
 						//...set the color (cyan) with the gradient.
 						vec[i][j][RED] = 199 * cyanGradient;
-						vec[i][j][GREEN] = 255 *cyanGradient;
+						vec[i][j][GREEN] = 255 * cyanGradient;
 						vec[i][j][BLUE] = 255 * cyanGradient;
 					}
 				}
@@ -103,6 +101,4 @@ void filter3(vector<vector<vector<int>>> &vec, vector<vector<vector<int>>> &vec2
 			}
         }
     }
-
-
 }

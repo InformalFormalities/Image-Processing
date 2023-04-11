@@ -1,4 +1,4 @@
-//Student 2 Name: Khushkaranpreet Grewal
+//By: Declan Doss, Khushkaranpreet Grewal, & Luis Sanchez
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -7,7 +7,7 @@
 using namespace std;
 
 const int RED = 0, GREEN = 1, BLUE = 2;
-//YOU: Write your own filter here - delete the demo code or modify it to suit your purposes
+
 void filter2(vector<vector<vector<int>>> &vec) {
 	size_t rows = vec.size();
 	if (!rows) exit(1);
@@ -48,4 +48,3 @@ void filter2(vector<vector<vector<int>>> &vec) {
 		else if (i > 1970) cyanGradient += 0.00048;
 	}
 }
-

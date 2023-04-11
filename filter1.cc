@@ -1,4 +1,4 @@
-//Student 1 Name: Declan Doss
+//By: Declan Doss
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -8,7 +8,6 @@ using namespace std;
 
 const int RED = 0, GREEN = 1, BLUE = 2;
 
-//YOU: Write your own filter here - delete the demo code or modify it to suit your purposes
 void filter1(vector<vector<vector<int>>> &vec) {
 	//Get the number of rows, columns, and colors in this 3D vector
 	size_t rows = vec.size();
@@ -25,9 +24,9 @@ void filter1(vector<vector<vector<int>>> &vec) {
 	double sunRedGradientPercent = 1, sunCyanGradientPercent = 0;
 	double redGradientPercent = 1, cyanGradientPercent = 0;
 
-	//NOTE COLORS USED:
+	//RGB OF COLORS USED:
 	//		Soft blue: 200, 235, 250
-	//		Cyan used: 100, 238, 255
+	//		Cyan: 100, 238, 255
 	//		Red: Default red. Amplified at times to make it more showy.
 
 	//Cycle through the image one row and all columns at a time.
@@ -195,7 +194,7 @@ void filter1(vector<vector<vector<int>>> &vec) {
 				}
 			}
 		}
-		//I don't even know how the living hell i affects the columns, but puts a gradient for the red side and cyan side ending in black in the middle. (Both sun and floor.)
+		//Update the gradient percentages by very slight amounts in order to allow the gradient to work across the whole image correctly.
 		if (i >= 1198 and i < 2000) sunRedGradientPercent -= 0.0012;
 		if (i > 2000 and i <= 2800) sunCyanGradientPercent += 0.0013;
 		if (i < 2000) redGradientPercent -= 0.00048;
